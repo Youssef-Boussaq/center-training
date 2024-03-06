@@ -1,0 +1,271 @@
+tp 50
+
+
+select *from formation ;
++----------+-------------------+-----------+----------+
+| codefrom | titerfrom         | dureeform | prixfrom |
++----------+-------------------+-----------+----------+
+|       11 | Programming Java  |        12 |     3600 |
+|       12 | web developpment  |        14 |     4200 |
+|       13 | Anglais technique |        15 |     3750 |
+|       14 | Communication     |        10 |     2500 |
+|       15 | Base de données   |        20 |     6000 |
+|       16 | Soft,skills       |        12 |     3000 |
++----------+-------------------+-----------+----------+
+
+
+ create table session (
+    -> codesess int  primary key ,
+    -> nomsess varchar(25),
+    -> datedebut date ,
+    -> datefin date ,
+    -> codefrom int ,
+    -> foreign key (codefrom) REFERENCES formation(codefrom)
+    -> );
+
+
+ insert into session
+    -> VALUES
+    ->     (1101, 'Session1101', '2022-01-02', '2022-01-14', 11),
+    ->     (1102, 'Session 1102', '2022-02-03', '2022-02-15', 11),
+    ->     (1201, 'Session 1201', '2022-03-04', '2022-03-18', 12),
+    ->     (1202, 'Session 1202', '2022-04-05', '2022-04-19', 12),
+    ->     (1301, 'Session 1301', '2022-01-06', '2022-01-21', 13),
+    ->     (1302, 'Session 1302', '2022-05-07', '2022-05-22', 13),
+    ->     (1303, 'Session 1303', '2022-06-08', '2022-06-23', 13),
+    ->     (1401, 'Session 1401', '2022-09-01', '2022-09-11', 14),
+    ->     (1402, 'Session 1402', '2022-08-08', '2022-08-18', 14),
+    ->     (1501, 'Session 1501', '2022-11-11', '2022-12-01', 15),
+    ->     (1502, 'Session 1502', '2022-09-12', '2022-10-02', 15),
+    ->     (1601, 'Session 1601', '2022-09-13', '2022-09-25', 16),
+    ->     (1602, 'Session 1602', '2022-10-14', '2022-10-26', 16),
+    ->     (1104, 'Session 1104', '2022-10-15', '2022-10-27', 11),
+    ->     (1203, 'Session 1203', '2022-11-16', '2022-11-30', 12),
+    ->     (1204, 'Session 1204', '2022-12-17', '2022-12-31', 12);
+
+
+
+
+
+
+
+
+ create table inscription (
+    -> numCINEtu varchar(25),
+    -> TypeCours varchar(25),
+    ->  codesess int ,
+    -> foreign key (codesess) references session(codesess)
+    -> );
+
+
+
+
+ insert into inscription (codesess,numCINEtu,TypeCours )
+    -> VALUES
+    ->     (1101, 'AB234567', 'Distanciel'),
+    ->     (1101, 'G5346789', 'Distanciel'),
+    ->     (1101, 'C0987265', 'Distanciel'),
+    ->     (1101, 'D2356903', 'Distanciel'),
+    ->     (1101, 'Y1234987', 'Distanciel'),
+    ->     (1101, 'J3578902', 'Distanciel'),
+    ->     (1101, 'F9827363', 'Distanciel'),
+    ->     (1201, 'AB234567', 'Présentiel'),
+    ->     (1201, 'G5346789', 'Présentiel'),
+    ->     (1201, 'C0987265', 'Présentiel'),
+    ->     (1201, 'D2356903', 'Présentiel'),
+    ->     (1201, 'Y1234987', 'Présentiel'),
+    ->     (1201, 'J3578902', 'Présentiel'),
+    ->     (1302, 'AB234567', 'Présentiel'),
+    ->     (1302, 'G5346789', 'Distanciel'),
+    ->     (1302, 'C0987265', 'Présentiel'),
+    ->     (1302, 'D2356903', 'Présentiel'),
+    ->     (1302, 'Y1234987', 'Présentiel'),
+    ->     (1401, 'G5346789', 'Distanciel'),
+    ->     (1401, 'C0987265', 'Distanciel'),
+    ->     (1401, 'D2356903', 'Distanciel'),
+    ->     (1401, 'Y1234987', 'Distanciel'),
+    ->     (1401, 'J3578902', 'Distanciel'),
+    ->     (1401, 'F9827363', 'Distanciel'),
+    ->     (1501, 'AB234567', 'Distanciel'),
+    ->     (1501, 'G5346789', 'Présentiel'),
+    ->     (1501, 'C0987265', 'Distanciel'),
+    ->     (1501, 'D2356903', 'Présentiel'),
+    ->     (1501, 'Y1234987', 'Présentiel'),
+    ->     (1501, 'J3578902', 'Présentiel'),
+    ->     (1501, 'F9827363', 'Presenciel');
+
+
+
+
+
+
+
+ create table SPECIALITE(
+    -> codespec int primary key,
+    -> nomspec varchar(20),
+    -> descspec varchar(40),
+    -> active int
+    -> );
+
+
+
+
+
+
+ insert into specialite
+    -> VALUES (101, 'GL' , 'Genie logiciel et développement',1),
+    -> (102, 'Data', 'Data Engineering', 1),
+    ->     (103, 'Langues', 'Anglais, Français', 1),
+    ->     (104, 'Communication', 'Communication', 1),
+    ->     (105, 'Sécurité', 'Réseaux et sécurité', 0);
+
+
+
+
+
+
+create table CATALOGUE (
+    -> codefrom int,
+    -> codespec int ,
+    -> foreign key (codefrom) references formation(codefrom),
+    -> foreign key (codespec) references specialite(codespec)
+    -> );
+
+
+
+ insert into CATALOGUE ( codespec , codefrom)
+    -> VALUES (101 ,11),
+    -> (101 ,12),
+    -> (102 ,15),
+    -> (101 ,15),
+    -> (103 ,13),
+    -> (104 ,13),
+    -> (104 ,14),
+    -> (104 ,16);
+
+
+
+alter table  inscription
+    ->  add primary key ( codesess , numCINEtu);
+
+
+
+
+
+
+
+ create table etudient(
+    -> numCINEtu varchar(25) primary key,
+    -> nometu  varchar(25),
+    -> prenometu  varchar(25),
+    -> dateNaissance date ,
+    -> adressetu  varchar(35),
+    -> villeetu  varchar(25),
+    -> niveauetu  varchar(25)
+    -> );
+
+
+
+
+
+
+ alter table etudient
+    -> MODIFY COLUMN adressetu varchar(45);
+
+
+
+insert into etudient
+    -> VALUES
+    ->     ('AB234567', 'Alami', 'Ahmad', '1986-01-01', 'Rue du port, 13', 'Tanger', 'Bac'),
+    ->     ('G5346789', 'Toumi', 'Aicha', '2000-03-12', 'N12 immeuble Jaouhara', 'Casablanca', 'Master'),
+    ->     ('C0987265', 'Souni', 'Sanaa', '1998-04-30', 'Place du peuple n 2', 'Tanger', 'Niveau bac'),
+    ->     ('D2356903', 'Idrissi Alami', 'Mohammed', '1996-05-05', 'Lotissement najah, rue n 12 immeuble 3', 'Rabat', 'Bac+4'),
+    ->     ('Y1234987', 'Ouled thami', 'Ali', '1979-12-04', 'La ville haute, rue chouhada n 6', 'Tanger', 'Bachelor'),
+    ->     ('J3578902', 'Ben Omar', 'Abd Allah', '1990-06-25', 'Villa Amina n12 bir rami', 'Kenitra', 'PhD'),
+    ->     ('F9827363', 'Boudiaf', 'Fatima Zohra', '1997-01-10', 'Immeuble iftikhar, n 13 ettakaddoum', 'Rabat', 'Bac+2');
+
+
+
+
+
+select COUNT(numCINEtu) from etudient ;
+--How many students are there?
+
+
+
+SELECT TIMESTAMPDIFF(YEAR, dateNaissance, CURDATE()) AS age from etudient ;
+-- the age of each student
+
+
+ select min(prixfrom) as mois_chére , max(prixfrom) as plus_chére  from formation ;
+--What is the most expensive training? And the least expensive ?
+
+
+select sum(prixfrom) as payer from formation ;
+--If a student is registered in all courses, how much must he pay?
+
+
+
+ select
+    -> codesess ,
+    ->  COUNT(*) AS numCINEtu
+    -> from inscription
+    -> group by codesess;
+--the number of students registered in each session
+
+
+
+select  DISTINCT numCINEtu from inscription;
+--the list of CIN numbers of students who are registered at least one
+times.
+
+
+
+select
+    ->  numCINEtu,
+    -> count(*) as number_of_inscription
+    -> from inscription
+    -> group by  numCINEtu ;
+--for each student the number of registrations.
+
+
+
+
+
+SELECT
+    ->     codesess,
+    ->     SUM(TypeCours = 'Distanciel') AS remote_registrations,
+    ->     SUM(TypeCours = 'Présentiel') AS face_to_face_registrations
+    -> FROM
+    ->     inscription
+    -> GROUP BY
+    ->     codesess
+    -> ;
+--for each session the number of remote registrations and
+face-to-face
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
